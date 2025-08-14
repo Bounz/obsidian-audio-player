@@ -166,3 +166,195 @@ If your plugin does not need CSS, delete this file.
 .active-comment > .timestamp {
 	color: var(--white);
 }
+
+/* Sticky player styles */
+.audio-player-ui.sticky-player {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	background: var(--background-primary);
+	border-bottom: 1px solid var(--background-modifier-border);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	margin: 0;
+	padding: 8px 16px;
+}
+
+.audio-player-ui.sticky-player .comment-list {
+	display: none;
+}
+
+.audio-player-ui.sticky-player .comment-input {
+	display: none;
+}
+
+.file-name {
+	font-size: 0.8rem;
+	color: var(--color-base-70);
+	font-weight: 500;
+	max-width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Sidebar Audio Player Styles */
+.sidebar-audio-player-sb {
+	padding: 12px;
+	height: 100%;
+	overflow-y: auto;
+}
+
+.no-audio-message-sb {
+	text-align: center;
+	color: var(--text-muted);
+	margin-top: 40px;
+}
+
+.no-audio-message-sb .icon-sb {
+	font-size: 48px;
+	margin-bottom: 16px;
+}
+
+.audio-content-sb {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.audio-header-sb .file-name-sb {
+	margin: 0;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--text-normal);
+	word-break: break-word;
+}
+
+.main-controls-sb {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.control-group-sb {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.playpause-sb {
+	width: 32px;
+	height: 32px;
+	border: 1px solid var(--background-modifier-border);
+	background: var(--background-primary);
+	border-radius: 6px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s ease;
+}
+
+.playpause-sb:hover {
+	background: var(--background-modifier-hover);
+}
+
+.playpause-sb.seconds-sb {
+	width: auto;
+	padding: 8px 12px;
+	font-size: 12px;
+	color: var(--text-normal);
+}
+
+.waveform-container-sb {
+	margin: 8px 0;
+}
+
+.waveform-sb {
+	display: flex;
+	gap: 1px;
+	height: 80px;
+	align-items: flex-end;
+	background: var(--background-secondary);
+	padding: 4px;
+	border-radius: 4px;
+	margin-bottom: 8px;
+}
+
+.wv-sb {
+	flex: 1;
+	background: #666;
+	min-height: 2px;
+	cursor: pointer;
+	transition: background-color 0.1s ease;
+}
+
+.wv-sb.played-sb {
+	background: var(--interactive-accent);
+}
+
+.wv-sb:hover {
+	background: var(--interactive-accent-hover) !important;
+}
+
+.timeline-sb {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 11px;
+	color: var(--text-muted);
+	font-family: var(--font-monospace);
+}
+
+.volume-control-sb {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 14px;
+}
+
+.volume-slider-sb {
+	flex: 1;
+	height: 4px;
+	background: var(--background-modifier-border);
+	border-radius: 2px;
+	outline: none;
+	-webkit-appearance: none;
+}
+
+.volume-slider-sb::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 14px;
+	height: 14px;
+	background: var(--interactive-accent);
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.volume-slider-sb::-moz-range-thumb {
+	width: 14px;
+	height: 14px;
+	background: var(--interactive-accent);
+	border-radius: 50%;
+	cursor: pointer;
+	border: none;
+}
+
+/* Timestamp Links */
+.audio-timestamp-link {
+	background: var(--background-modifier-hover);
+	padding: 2px 4px;
+	border-radius: 3px;
+	font-family: var(--font-monospace);
+	font-size: 0.9em;
+	transition: all 0.2s ease;
+}
+
+.audio-timestamp-link:hover {
+	background: var(--interactive-accent);
+	color: var(--text-on-accent) !important;
+}

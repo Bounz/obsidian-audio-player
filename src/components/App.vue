@@ -25,6 +25,9 @@
           <span class="current-time">
             {{ displayedCurrentTime }}
           </span>
+          <span v-if="isSticky" class="file-name">
+            {{ fileName }}
+          </span>
           <span class="duration">
             {{ displayedDuration }}
           </span>
@@ -97,6 +100,9 @@ export default defineComponent({
 
       ro: ResizeObserver,
       smallSize: false,
+      isSticky: false,
+      originalTop: 0,
+      scrollListener: null as (() => void) | null,
     }
   },
   computed: {
@@ -104,6 +110,10 @@ export default defineComponent({
     displayedDuration() { return secondsToString(this.duration); },
     currentBar() { return Math.floor(this.currentTime / this.duration * this.nSamples); },
     commentsSorted() { return this.comments.sort((x: AudioComment, y:AudioComment) => x.timeNumber - y.timeNumber); },
+    fileName() { 
+      if (!this.filepath) return '';
+      return this.filepath.split('/').pop() || '';
+    },
   },
   methods: {
     getSectionInfo() { return this.ctx.getSectionInfo(this.mdElement); },
@@ -111,7 +121,7 @@ export default defineComponent({
     isCurrent() { return this.audio.src === this.srcPath; },
     onResize() { 
       this.smallSize = this.$el.clientWidth < 300;
-    },
+    },    
     async loadFile() {
       // read file from vault 
       const file = window.app.vault.getAbstractFileByPath(this.filepath) as TFile;
@@ -212,12 +222,20 @@ export default defineComponent({
       this.audio.addEventListener('timeupdate', this.timeUpdateHandler);
       this.audio?.play();
       this.playing = true;
-      this.setBtnIcon('pause');      
+      this.setBtnIcon('pause');
+      
+      // Dispatch global resume event to sync with sidebar
+      const ev = new Event('allresume');
+      document.dispatchEvent(ev);
     },
     pause() {
       this.audio?.pause();
       this.playing = false;
       this.setBtnIcon('play');
+      
+      // Dispatch global pause event to sync with sidebar
+      const ev = new Event('allpause');
+      document.dispatchEvent(ev);
     },
     globalPause() {
       const ev = new Event('allpause');
@@ -298,6 +316,13 @@ export default defineComponent({
       if (this.isCurrent()) 
         this.showCommentInput();
     })
+
+    // Listen for seek events from timestamp links
+    this.$el.addEventListener('seek-to-timestamp', (event: CustomEvent) => {
+      console.log('Received seek-to-timestamp event:', event.detail);
+      const { seconds } = event.detail;
+      this.setPlayheadSecs(seconds);
+    });
 
     this.audio.addEventListener('ended', () => {
       if (this.audio.src === this.srcPath)
