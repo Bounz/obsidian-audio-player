@@ -201,7 +201,6 @@ If your plugin does not need CSS, delete this file.
 
 /* Sidebar Audio Player Styles */
 .sidebar-audio-player-sb {
-	padding: 12px;
 	height: 100%;
 	overflow-y: auto;
 }
@@ -220,7 +219,7 @@ If your plugin does not need CSS, delete this file.
 .audio-content-sb {
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: 8px;
 }
 
 .audio-header-sb .file-name-sb {
@@ -271,29 +270,38 @@ If your plugin does not need CSS, delete this file.
 }
 
 .waveform-container-sb {
-	margin: 8px 0;
+	/* margin: 8px 0; */
 }
 
 .waveform-sb {
 	display: flex;
 	gap: 1px;
-	height: 80px;
+	height: 60px;
 	align-items: flex-end;
 	background: var(--background-secondary);
-	padding: 4px;
+	/* padding: 4px; */
 	border-radius: 4px;
 	margin-bottom: 8px;
 }
 
 .wv-sb {
 	flex: 1;
+	display: flex;
+    align-items: flex-end;
+	min-height: 100%;
+	cursor: pointer;
+	/* transition: background-color 0.1s ease; */
+}
+
+.wv-bar-sb {
+	flex: 1;
 	background: #666;
 	min-height: 2px;
-	cursor: pointer;
+	/* cursor: pointer; */
 	transition: background-color 0.1s ease;
 }
 
-.wv-sb.played-sb {
+.wv-bar-sb.played-sb {
 	background: var(--interactive-accent);
 }
 

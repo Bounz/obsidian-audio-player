@@ -25,13 +25,15 @@
 
       <div class="waveform-container-sb">
         <div class="waveform-sb">
-          <div class="wv-sb" v-for="(s, i) in filteredData" :key="currentFile+i"
-            v-bind:class="{'played-sb': i <= currentBar }"
-            @mousedown="barMouseDownHandler(i)"
-            :style="{
-              height: s * 100 + 'px'
-            }">
-          </div>
+		  <div class="wv-sb" v-for="(s, i) in filteredData" :key="currentFile+i"				
+				@mousedown="barMouseDownHandler(i)">
+			<div class="wv-bar-sb" 
+				v-bind:class="{'played-sb': i <= currentBar }"
+				:style="{
+					height: Math.max(4, s * 60) + 'px'
+				}">
+			</div>
+		  </div>          
         </div>
         <div class="timeline-sb">
           <span class="current-time-sb">{{ displayedCurrentTime }}</span>
